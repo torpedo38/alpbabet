@@ -1,90 +1,308 @@
-﻿using System;
-using System.Linq;
-using System.IO;
-using System.Text;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-
-/**
- * Auto-generated code below aims at helping you parse
- * the standard input according to the problem statement.
- **/
-class Solution
+﻿namespace Solution
 {
-    static void Main(string[] args)
+    using System;
+    public class BattleshipField
     {
-        int n = int.Parse(Console.ReadLine());
-        char[,] grid = new char[n, n];
-        char[,] row = new char[n, n];
-
-        char[, ] clear(char[,] table)
+        public static bool ValidateBattlefield(int[,] field)
         {
-            for (int i = 0; i < n; i++)
-            {
-                for (int j = 0; j < n; j++)
-                {
-                    table[i, j] = '-';
-                }
-            }
-            return table;
-        }
-
-        for (int i = 0; i < n; i++)
-        {
-            string m = Console.ReadLine();
-            for (int j = 0; j < n; j++)
-            {
-                grid[i, j] = m[j];
-            }
-        }
-
-        int[, ] function(int a,int b,int k) 
-        {
+            int scale = 10;
+            int ein = 0;
+            int zwei = 0;
+            int drei = 0;
+            int vier = 0;
             int test = 0;
 
-            if ((int)grid[a-1, b] == k++)
-            {
-                function(a - 1, b, k++);
-                row[a - 1, b] = (char)(k++);
-            }
-            if ((int)grid[a + 1, b] == k++)
-            {
-                function(a + 1, b, k++);
-                test++;
-            }
-            if ((int)grid[a, b - 1] == k++)
-            {
-                function(a, b - 1, k++);
-                test++;
-            }
-            if ((int)grid[a, b + 1] == k++)
-            {
-                function(a, b + 1, k++);
-                test++;
-            }
-            if (test >= 2)
-            {
-                return [a, b];
-            }
 
-            return [a,b];
-        }
-
-        for (int x = 0; x < n; x++)
-        {
-            for (int y = 0; y < n; y++)
+            for (int i = 0; i < scale; i++)
             {
-                if (grid[x, y] == 'a')
+                for (int j = 0; j < scale; j++)
                 {
-                    row[x, y] = 'a';
-                    function(x, y, 98);
+                    if (field[i,j] == 1)
+                    {
+                        if (i!=0)
+                        {
+                            if (field[i - 1, j] == 1)
+                            {
+                                goto checkpoint1;
+                            }
+                        }
+                        if (j != scale - 1)
+                        {
+                            if (field[i, j + 1] == 1)
+                            {
+                                test++;
+                                j++;
+
+                                if (i != 0)
+                                {
+                                    if (field[i - 1, j] == 1)
+                                    {
+                                        return false;
+                                    }
+                                }
+                                if (j != scale - 1)
+                                {
+                                    if (field[i, j + 1] == 1)
+                                    {
+                                        j++;
+
+                                        if (i != 0)
+                                        {
+                                            if (field[i - 1, j] == 1)
+                                            {
+                                                return false;
+                                            }
+                                        }
+                                        if (j != scale - 1)
+                                        {
+                                            if (field[i, j + 1] == 1)
+                                            {
+                                                j++;
+
+                                                if (i != 0)
+                                                {
+                                                    if (field[i - 1, j] == 1)
+                                                    {
+                                                        return false;
+                                                    }
+                                                }
+                                                if (j != scale - 1)
+                                                {
+                                                    if (field[i, j + 1] == 1)
+                                                    {
+                                                        return false;
+                                                    }
+                                                }
+                                                if (i != scale - 1)
+                                                {
+                                                    if (field[i + 1, j] == 1)
+                                                    {
+                                                        return false;
+                                                    }
+                                                }
+                                                vier++;
+                                                goto checkpoint1;
+                                            }
+                                        }
+                                        if (i != scale - 1)
+                                        {
+                                            if (field[i + 1, j] == 1)
+                                            {
+                                                return false;
+                                            }
+                                        }
+                                        drei++;
+                                        goto checkpoint1;
+                                    }
+                                }
+                                if (i != scale - 1)
+                                {
+                                    if (field[i + 1, j] == 1)
+                                    {
+                                        return false;
+                                    }
+                                }
+                                zwei++;
+                                goto checkpoint1;
+                            }
+                        }
+                        if (i != scale - 1)
+                        {
+                            if (field[i + 1, j] == 1)
+                            {
+                                test++;
+                                if (j != 0)
+                                {
+                                    if (field[i, j - 1] == 1)
+                                    {
+                                        return false;
+                                    }
+                                }
+                                if (j != scale - 1)
+                                {
+                                    if (field[i, j + 1] == 1)
+                                    {
+                                        return false;
+                                    }
+                                }
+                                if (i != scale - 1)
+                                {
+                                    if (j != 0)
+                                    {
+                                        if (field[i, j - 1] == 1)
+                                        {
+                                            return false;
+                                        }
+                                    }
+                                    if (j != scale - 1)
+                                    {
+                                        if (field[i, j + 1] == 1)
+                                        {
+                                            return false;
+                                        }
+                                    }
+                                    if (i != scale - 1)
+                                    {
+                                        if (j != 0)
+                                        {
+                                            if (field[i, j - 1] == 1)
+                                            {
+                                                return false;
+                                            }
+                                        }
+                                        if (j != scale - 1)
+                                        {
+                                            if (field[i, j + 1] == 1)
+                                            {
+                                                return false;
+                                            }
+                                        }
+                                        if (i != scale - 1)
+                                        {
+                                            if (j != 0)
+                                            {
+                                                if (field[i, j - 1] == 1)
+                                                {
+                                                    return false;
+                                                }
+                                            }
+                                            if (j != scale - 1)
+                                            {
+                                                if (field[i, j + 1] == 1)
+                                                {
+                                                    return false;
+                                                }
+                                            }
+                                            if (i != scale - 1)
+                                            {
+                                                return false;
+                                            }
+                                        }
+                                        vier++;
+                                        goto checkpoint1;
+                                    }
+                                    drei++;
+                                    goto checkpoint1;
+                                }
+                                zwei++;
+                                goto checkpoint1;
+                            }
+                        }
+                        if(test == 0)
+                        {
+                            ein++;
+                        }
+                        else if (test == 2)
+                        {
+                            return false;
+                        }
+                        checkpoint1:;
+                       
+                    }
                 }
             }
+            if (ein != 4 || zwei != 3 || drei != 2 || vier != 1)
+            {
+                return false;
+            }
+            for (int i = 0; i < scale; i++)
+            {
+                for (int j = 0; j < scale; j++)
+                {
+                    if (i == 0 && j == 0)
+                    {
+                        if (field[i, j] == 1 && field[i + 1, j + 1] == 1)
+                        {
+                            return false;
+                        }
+                    }
+                    else if (i == scale - 1 && j == 0)
+                    {
+                        if (field[i, j] == 1 && field[i - 1, j + 1] == 1)
+                        {
+                            return false;
+                        }
+                    }
+                    else if (i == 0 && j == scale - 1)
+                    {
+                        if (field[i, j] == 1 && field[i + 1, j - 1] == 1)
+                        {
+                            return false;
+                        }
+                    }
+                    else if (i == scale - 1 && j == scale - 1)
+                    {
+                        if (field[i, j] == 1 && field[i - 1, j - 1] == 1)
+                        {
+                            return false;
+                        }
+                    }
+                    else if (i == 0)
+                    {
+                        if (field[i, j] == 1 && field[i + 1, j + 1] == 1)
+                        {
+                            return false;
+                        }
+                        else if (field[i, j] == 1 && field[i + 1, j - 1] == 1)
+                        {
+                            return false;
+                        }
+                    }
+                    else if (j == 0)
+                    {
+                        if (field[i, j] == 1 && field[i + 1, j + 1] == 1)
+                        {
+                            return false;
+                        }
+                        else if (field[i, j] == 1 && field[i - 1, j + 1] == 1)
+                        {
+                            return false;
+                        }
+                    }
+                    else if (i == scale - 1)
+                    {
+                        if (field[i, j] == 1 && field[i - 1, j + 1] == 1)
+                        {
+                            return false;
+                        }
+                        else if (field[i, j] == 1 && field[i - 1, j - 1] == 1)
+                        {
+                            return false;
+                        }
+                    }
+                    else if (j == scale - 1)
+                    {
+                        if (field[i, j] == 1 && field[i + 1, j - 1] == 1)
+                        {
+                            return false;
+                        }
+                        else if (field[i, j] == 1 && field[i - 1, j - 1] == 1)
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        if (field[i, j] == 1 && field[i + 1, j + 1] == 1)
+                        {
+                            return false;
+                        }
+                        else if (field[i, j] == 1 && field[i + 1, j - 1] == 1)
+                        {
+                            return false;
+                        }
+                        else if (field[i, j] == 1 && field[i - 1, j + 1] == 1)
+                        {
+                            return false;
+                        }
+                        else if (field[i, j] == 1 && field[i - 1, j - 1] == 1)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
         }
-        // Write an answer using Console.WriteLine()
-        // To debug: Console.Error.WriteLine("Debug messages...");
-
-        Console.WriteLine("answer");
     }
 }
